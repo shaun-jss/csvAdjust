@@ -4,7 +4,6 @@ from enum import Enum
 
 def lower_case_all_keys(lower_keys):
     """Helper method to lower case all the keys in the dictionary"""
-    """TODO: I don't think this works with lists correctly, and I don't want to work on it right now"""
     #Handle lists/arrays
     if type(lower_keys) is list:
         print('is list')
@@ -35,12 +34,20 @@ class ConfigSection(Enum):
     ROOT = ("Root", None, "", None)
     
     #Logging section
-    LOGGING = ("Logging", "Root", "logging", None)
+    LOGGING = ("Logging", ROOT[0], "logging", None)
     LOG_FILENAME = ("Log Filename", LOGGING[0], "filename", "adjuster.log")
     LOG_ENCODING = ("Log Encoding", LOGGING[0], "encoding", "utf-8")
     LOG_LEVEL = ("Log Level", LOGGING[0], "level", "INFO")
     LOG_FORMAT = ("Log Format", LOGGING[0], "format", "%(levelname)s %(message)s")
     LOG_FILE_MODE = ("Log File Mode", LOGGING[0], "filemode", "a")
+
+    #CSV section
+    CSVS = ("CSVs", ROOT[0], "csvs", [])
+    READ_DIRECTORY = ("Read Directory", CSVS[0], "readdirectory", os.path.join(os.getcwd(), "originals"))
+    WRITE_DIRECTORY = ("Write Directory", CSVS[0], "writedirectory", os.path.join(os.getcwd(), "changed"))
+    FILE_ENCODING = ("File Encoding", CSVS[0], "fileencoding", "utf-8")
+    REMOVE_FILES_IN_WRITE_DIRECTORY = ("Remove Files In Write Directory", CSVS[0], "removefilesinwritedirectory", False)
+    DIALECT = ("Dialect", CSVS[0], "dialect", "excel")
 
     def __init__(self, id, parentSection, jsonName, defaultValue):
         self.id = id
@@ -132,8 +139,7 @@ class CSVAdjustConfig(object):
             raw_dict = json.loads(json_data)
             
             #Make all the keys lowercase
-            #self.__config = self.__lower_case_all_keys(raw_dict)
-            self.__config = raw_dict
+            self.__config = lower_case_all_keys(raw_dict)
 
     def _verify_logging_section(self):
         """Verifies that the logging section has either the default values, or required values"""

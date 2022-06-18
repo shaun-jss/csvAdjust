@@ -74,10 +74,10 @@ class CSVAdjustConfigTest(unittest.TestCase):
     def test_config_section_enum(self):
         """Verifies everything with the config section enumeration is fine"""
         Sec = config.ConfigSection
-        self.assertEqual(7, len(Sec))
+        self.assertEqual(13, len(Sec))
         
 
-    @unittest.skip("I don't think this is handling list correctly, and I don't want to work on it now")
+    #@unittest.skip("I don't think this is handling list correctly, and I don't want to work on it now")
     def test_lower_case_all_keys(self):
         """Tests the __lower_case_all_keys method, which is designed to lower case all the keys in a dictionary"""
         test_dict = dict()
@@ -87,33 +87,58 @@ class CSVAdjustConfigTest(unittest.TestCase):
         test_dict['TESTTHREE'] = 'gaMMa'
         sub_list = []
         sub_list.append({'subTestOne': 'APPLE', 'subtestTWO' : 'mango', 'subTESTthree' : 'kiwI'})
+        sub_list.append({'OKC': 'Oklahoma', 'auStiN': 'Texas'})
+        sub_list.append([{'Red': 'FF0000', 'grEEn': '00FF00', 'bluE': '0000FF'}, {'rOck': 'Paper'}])
         test_dict['TestFour'] = sub_list
 
-        #compareDict = config.lower_case_all_keys(test_dict)
+        compareDict = config.lower_case_all_keys(test_dict)
 
         #Verify the keys are lower case
-        #self.assertIn('testone', compareDict)
-        #self.assertIn('testtwo', compareDict)
-        #self.assertIn('testthree', compareDict)
-        #self.assertIn('testfour', compareDict)
+        self.assertIn('testone', compareDict)
+        self.assertIn('testtwo', compareDict)
+        self.assertIn('testthree', compareDict)
+        self.assertIn('testfour', compareDict)
 
         #Make sure the data didn't change
-        #self.assertEqual(compareDict['testone'], 'alpha')
-        #self.assertEqual(compareDict['testtwo'], 'betA')
-        #self.assertEqual(compareDict['testthree'], 'gaMMa')
+        self.assertEqual(compareDict['testone'], 'alpha')
+        self.assertEqual(compareDict['testtwo'], 'betA')
+        self.assertEqual(compareDict['testthree'], 'gaMMa')
 
         #Verify the list made it through
-        #self.assertTrue(type(compareDict['testfour']) is list)
+        self.assertTrue(type(compareDict['testfour']) is list)
 
         #Lets make sure the sub dictionary worked
-        #subList = compareDict['testfour']
+        subList = compareDict['testfour']
 
-        #self.assertTrue(type(subList) is list)
+        self.assertTrue(type(subList) is list)
+        self.assertTrue(type(subList[0]) is dict)
+        self.assertTrue(type(subList[1]) is dict)
+        self.assertTrue(type(subList[2]) is list)
 
-        
-        #self.assertIn('subtestone', subList[0])
-        #self.assertIn('subtesttwo', subList[1])
-        #self.assertIn('subtestthree', subList[2])
+        #Check that keys are lower case
+        self.assertIn('subtestone', subList[0])
+        self.assertIn('subtesttwo', subList[0])
+        self.assertIn('subtestthree', subList[0])
+        self.assertIn('okc', subList[1])
+        self.assertIn('austin', subList[1])
+        self.assertIn('red', subList[2][0])
+        self.assertIn('green', subList[2][0])
+        self.assertIn('blue', subList[2][0])
+        self.assertIn('rock', subList[2][1])
+
+        #Check values
+        self.assertEqual(subList[0]['subtestone'], 'APPLE')
+        self.assertEqual(subList[0]['subtesttwo'], 'mango')
+        self.assertEqual(subList[0]['subtesttwo'], 'mango')
+        self.assertEqual(subList[0]['subtestthree'], 'kiwI')
+        self.assertEqual(subList[1]['okc'], 'Oklahoma')
+        self.assertEqual(subList[1]['austin'], 'Texas')
+        self.assertEqual(subList[2][0]['red'], 'FF0000')
+        self.assertEqual(subList[2][0]['green'], '00FF00')
+        self.assertEqual(subList[2][0]['blue'], '0000FF')
+        self.assertEqual(subList[2][1]['rock'], 'Paper')
+
+
         
 
         
