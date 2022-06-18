@@ -142,7 +142,7 @@ class CSVAdjustConfig(object):
             self.__config = lower_case_all_keys(raw_dict)
 
     def _verify_logging_section(self):
-        """Verifies that the logging section has either the default values, or required values"""
+        """Verifies that the logging section has either has a configuration property, or has the default value"""
         if not ConfigSection.LOGGING.jsonName in self.__config:
             self.__config[ConfigSection.LOGGING.jsonName] = dict()
 
