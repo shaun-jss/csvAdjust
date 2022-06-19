@@ -6,7 +6,6 @@ def lower_case_all_keys(lower_keys):
     """Helper method to lower case all the keys in the dictionary"""
     #Handle lists/arrays
     if type(lower_keys) is list:
-        print('is list')
         new_list = []
         for value in lower_keys:
             new_list.append(lower_case_all_keys(value))

@@ -178,6 +178,3 @@ class CSVAdjustConfigTest(unittest.TestCase):
         ret_json = json.dumps(CSVAdjustConfigTest.get_test_dict())
 
         return ret_json
-
-if __name__ == '__main__':
-    unittest.main()
