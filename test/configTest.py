@@ -129,7 +129,6 @@ class CSVAdjustConfigTest(unittest.TestCase):
         #Check values
         self.assertEqual(subList[0]['subtestone'], 'APPLE')
         self.assertEqual(subList[0]['subtesttwo'], 'mango')
-        self.assertEqual(subList[0]['subtesttwo'], 'mango')
         self.assertEqual(subList[0]['subtestthree'], 'kiwI')
         self.assertEqual(subList[1]['okc'], 'Oklahoma')
         self.assertEqual(subList[1]['austin'], 'Texas')

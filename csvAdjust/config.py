@@ -43,7 +43,7 @@ class ConfigSection(Enum):
 
     #CSV section
     CSVS = ("CSVs", ROOT[0], "csvs", [])
-    READ_DIRECTORY = ("Read Directory", CSVS[0], "readdirectory", os.path.join(os.getcwd(), "originals"))
+    READ_DIRECTORY = ("Read Directory", CSVS[0], "readdirectory", os.path.join(os.getcwd(), "original"))
     WRITE_DIRECTORY = ("Write Directory", CSVS[0], "writedirectory", os.path.join(os.getcwd(), "changed"))
     FILE_ENCODING = ("File Encoding", CSVS[0], "fileencoding", "utf-8")
     REMOVE_FILES_IN_WRITE_DIRECTORY = ("Remove Files In Write Directory", CSVS[0], "removefilesinwritedirectory", False)
