@@ -1,14 +1,7 @@
 import logging
 from enum import Enum
 from abc import ABC, abstractmethod
-
-class FieldType(Enum):
-    """Enumeration of the valid kinds of required fields a conditional can have"""
-    COLUMN_NUMBER = ("columnnumber")
-    VALUE = ("value")
-    
-    def __init__(self, jsonName):
-        self.jsonName = jsonName
+from . import CSVAdjustFieldType
         
 class Conditional(ABC):
     """Abstract class that concrete conditional classes extend. This might not be that necessary, but my day job
@@ -90,7 +83,7 @@ class ColumnEquals(Conditional):
     
     @classmethod
     def get_required_fields(cls):
-        return (FieldType.COLUMN_NUMBER, FieldType.VALUE)
+        return (CSVAdjustFieldType.COLUMN_NUMBER, CSVAdjustFieldType.VALUE)
     
 class ColumnContains(Conditional):
     """Checks if a column contains a value"""
@@ -111,7 +104,7 @@ class ColumnContains(Conditional):
     
     @classmethod
     def get_required_fields(cls):
-        return (FieldType.COLUMN_NUMBER, FieldType.VALUE)
+        return (CSVAdjustFieldType.COLUMN_NUMBER, CSVAdjustFieldType.VALUE)
     
 class RowContains(Conditional):
     """Checks if a value exists in any of the columns"""
@@ -136,7 +129,7 @@ class RowContains(Conditional):
     
     @classmethod
     def get_required_fields(cls):
-        return (FieldType.VALUE,)
+        return (CSVAdjustFieldType.VALUE,)
     
 class ConditionalType(Enum):
     """The types of conditionals that can be used"""
