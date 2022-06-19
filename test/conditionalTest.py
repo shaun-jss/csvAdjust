@@ -42,8 +42,8 @@ class ConditionalTest(unittest.TestCase):
         self.assertFalse(contains.is_met(row))
         
     def test_conditional_types_enum(self):
-        """Tests for the ConditionalTypes enumeration"""
-        conTypes = conditional.ConditionalTypes
+        """Tests for the ConditionalType enumeration"""
+        conTypes = conditional.ConditionalType
         
         self.assertEqual(3, len(conTypes))
         
@@ -75,7 +75,7 @@ class ConditionalTest(unittest.TestCase):
         self.assertEqual(len(conditionals), 3)
         
         # Verify the correct objects where created
-        conTypes = conditional.ConditionalTypes
+        conTypes = conditional.ConditionalType
         
         self.assertEqual(type(conditionals[0]), conTypes.COLUMN_EQUALS.implementation)
         self.assertEqual(type(conditionals[1]), conTypes.COLUMN_CONTAINS.implementation)

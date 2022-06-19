@@ -31,7 +31,7 @@ class Conditional(ABC):
         """Takes a list of dictionaries that contain conditional configurations and transforms them into conditional objects"""
         conditionals = []
         for condition in conditional_list:
-            conType = ConditionalTypes.get_type(condition['type'])
+            conType = ConditionalType.get_type(condition['type'])
             
             # If we can't figure out the type, throw an exception to prevent unintended wonky stuff from happening in the output files
             if conType is None:
@@ -52,12 +52,14 @@ class Conditional(ABC):
                                   field.jsonName, conType.name)
                     raise Exception("Missing required field for conditional")
                 
-                fieldValues = condition[field.jsonName]
+                fieldValues.append(condition[field.jsonName])
                 
             # Now lets actually create the conditional objects. 
             # We can pass in the values stored in the fieldValues list as arguments to the constructor by unpacking the list
             # We do that by putting a * in front of the variable name
             conditionals.append(conType.implementation(*fieldValues))  
+            
+        return conditionals
                 
     
 class ColumnEquals(Conditional):
@@ -134,9 +136,9 @@ class RowContains(Conditional):
     
     @classmethod
     def get_required_fields(cls):
-        return (FieldType.COLUMN_NUMBER)
+        return (FieldType.VALUE,)
     
-class ConditionalTypes(Enum):
+class ConditionalType(Enum):
     """The types of conditionals that can be used"""
     
     COLUMN_EQUALS = ("columnequals", ColumnEquals)
