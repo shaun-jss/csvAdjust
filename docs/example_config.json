@@ -1,0 +1,42 @@
+{
+	"logging": {
+	"fileName": "csvChanger.log",
+	"encoding": "utf-8",
+	"level": "INFO",
+	"format": "%(levelname)s %(message)s",
+	"fileMode": "a"
+	},
+	"csvs": 
+	[
+		{
+			"readDirectory": "Original Files",
+			"writeDirectory": "Changed Files",
+			"fileEncoding": "utf-8",
+			"removeExistingWriteFiles": true,
+			"dialect": "excel",
+
+			"transformers": [
+				{
+					"conditionals": [
+							{
+								"type": "columnEquals",
+								"columnNumber": 7,
+								"value": "test"
+							},
+							{
+								"type": "columnContains",
+								"columnNumber": 2,
+								"value": "someValue"
+							}
+						],
+					"conditionalsBoolean": "AND",
+					"transformer": {
+						"column": 7,
+						"operation":"replace",
+						"value":12
+					}
+				}
+			]
+		}
+	]
+}
