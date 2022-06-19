@@ -88,7 +88,9 @@ class ConditionalTest(unittest.TestCase):
                 "columnnumber":2
             }
         ]
-        self.assertRaises(Exception, callable)
+        
+        with self.assertRaises(Exception):
+            conditional.Conditional.parse_conditionals(brokeConfig)
         
 
     @staticmethod
