@@ -15,7 +15,7 @@
 			"removeExistingWriteFiles": true,
 			"dialect": "excel",
 
-			"transformers": [
+			"adjusts": [
 				{
 					"conditionals": [
 							{
@@ -30,11 +30,13 @@
 							}
 						],
 					"conditionalsBoolean": "AND",
-					"transformer": {
-						"column": 7,
-						"operation":"replace",
-						"value":12
-					}
+					"transformers": [
+						{
+							"column": 7,
+							"operation":"replace",
+							"value":12
+						}
+					]
 				}
 			]
 		}
