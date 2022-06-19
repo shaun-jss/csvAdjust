@@ -65,7 +65,7 @@ class ColumnEquals(Conditional):
         ----------
         columnNumber : int
             The column number to check. This value is 0-indexed
-        value :
+        value
             What we are checking the column's value against
         """
         self.columnNumber = columnNumber
@@ -89,6 +89,15 @@ class ColumnContains(Conditional):
     """Checks if a column contains a value"""
     
     def __init__(self, columnNumber, value):
+        """Creates a ColumnContains conditional
+        
+        Parameters
+        ----------
+        columnNumber : int
+            The column number to check. This value is 0-indexed
+        value
+            What we looking for in the column
+        """
         self.columnNumber = columnNumber
         self.value = value
         
@@ -110,7 +119,13 @@ class RowContains(Conditional):
     """Checks if a value exists in any of the columns"""
     
     def __init__(self, value):
-        """We don't actually need columnNumber, but it is included to follow the patter"""
+        """We don't actually need columnNumber, but it is included to follow the patter
+        
+        Parameters
+        ----------
+        value
+            The value we are seeing if the row contains
+        """
         self.value = value
          
     def is_met(self, row):
